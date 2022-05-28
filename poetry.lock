@@ -631,7 +631,7 @@ typing_extensions = ">=3.6,<5.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "db629f4201813fa10749c5e049f99ddc0aeb04901a4dbf9bde3c0bd41f9db61a"
+content-hash = "f5b351591ab9f8882d74a5adef6150cbf9cb3020f96be499bab5c3d8ed070804"
 
 [metadata.files]
 argparse = [
