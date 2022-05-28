@@ -22,6 +22,8 @@ def test_generate_diff(tests_directory):
     Args:
         tests_directory: fixture
     """
+    print(Path.cwd())
+    print(__file__)
     first_path = Path(tests_directory, 'fixtures/file1.json')
     second_path = Path(tests_directory, 'fixtures/file2.json')
     result_path = Path(tests_directory, 'fixtures/result.txt')
