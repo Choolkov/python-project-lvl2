@@ -31,8 +31,8 @@ def generate_diff(first_file: str, second_file: str) -> str:
         str
 
     """
-    first_json = json.load(open(first_file))  # noqa: WPS515
-    second_json = json.load(open(second_file))  # noqa: WPS515
+    first_json = json.load(first_file.open())  # noqa: WPS515
+    second_json = json.load(second_file.open())  # noqa: WPS515
     json_items = []
     for key in get_keys(first_json, second_json):
         if first_json.get(key) == second_json.get(key):

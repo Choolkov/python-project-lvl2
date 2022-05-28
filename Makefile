@@ -20,3 +20,6 @@ install:
 
 poetry-install:
 	curl -sSL https://install.python-poetry.org | python3 -
+
+tests:
+	poetry run pytest
