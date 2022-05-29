@@ -24,4 +24,7 @@ poetry-install:
 tests:
 	poetry run pytest tests -vv
 
+test-coverage:
+	poetry run pytest --cov gendiff
+
 .PHONY: build publish package-install rebuild lint install poetry-install tests
