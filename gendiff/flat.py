@@ -1,6 +1,8 @@
 """Generate diff module."""
 
-import json
+from pathlib import Path
+
+from gendiff.parsing import parse_file
 
 
 def get_keys(dictionary1: dict, dictionary2: dict) -> list:
@@ -19,9 +21,9 @@ def get_keys(dictionary1: dict, dictionary2: dict) -> list:
     return sorted(keys1 | keys2)
 
 
-def generate_diff(first_file: str, second_file: str) -> str:
+def generate_diff(first_file: Path, second_file: Path) -> str:
     """
-    Return the difference between two flat json files.
+    Return the difference between two flat json or yaml files.
 
     Args:
         first_file: first file path
@@ -31,17 +33,17 @@ def generate_diff(first_file: str, second_file: str) -> str:
         str
 
     """
-    first_json = json.load(first_file.open())  # noqa: WPS515
-    second_json = json.load(second_file.open())  # noqa: WPS515
-    json_items = []
-    for key in get_keys(first_json, second_json):
-        if first_json.get(key) == second_json.get(key):
-            json_items.append('    {0}: {1}'.format(key, first_json.get(key)))
+    first_dict = parse_file(first_file)
+    second_dict = parse_file(second_file)
+    pairs = []
+    for key in get_keys(first_dict, second_dict):
+        if first_dict.get(key) == second_dict.get(key):
+            pairs.append('    {0}: {1}'.format(key, first_dict.get(key)))
             continue
-        if key in first_json:
-            json_items.append('  - {0}: {1}'.format(key, first_json.get(key)))
-        if key in second_json:
-            json_items.append('  + {0}: {1}'.format(key, second_json.get(key)))
-    json_items.insert(0, '{')
-    json_items.append('}')
-    return '\n'.join(json_items)
+        if key in first_dict:
+            pairs.append('  - {0}: {1}'.format(key, first_dict.get(key)))
+        if key in second_dict:
+            pairs.append('  + {0}: {1}'.format(key, second_dict.get(key)))
+    pairs.insert(0, '{')
+    pairs.append('}')
+    return '\n'.join(pairs)
