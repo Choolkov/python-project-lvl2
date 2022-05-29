@@ -22,4 +22,6 @@ poetry-install:
 	curl -sSL https://install.python-poetry.org | python3 -
 
 tests:
-	poetry run pytest
+	poetry run pytest tests -vv
+
+.PHONY: build publish package-install rebuild lint install poetry-install tests

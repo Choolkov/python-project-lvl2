@@ -16,6 +16,7 @@ pytest = "^7.1.2"
 pytest-cov = "^3.0.0"
 wemake-python-styleguide = "^0.16.1"
 black = {version = "^22.3.0", allow-prereleases = true}
+isort = "^5.10.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
