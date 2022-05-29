@@ -27,4 +27,9 @@ tests:
 test-coverage:
 	poetry run pytest --cov gendiff
 
-.PHONY: build publish package-install rebuild lint install poetry-install tests
+fix:
+	git add .
+	git commit -m 'fix'
+	git push
+
+.PHONY: build publish package-install rebuild lint install poetry-install tests test-coverage
