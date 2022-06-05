@@ -6,3 +6,6 @@
 ### Code Climate badges:
 [![Maintainability](https://api.codeclimate.com/v1/badges/b557bbf5c80a22d72e46/maintainability)](https://codeclimate.com/github/Choolkov/python-project-lvl2/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/b557bbf5c80a22d72e46/test_coverage)](https://codeclimate.com/github/Choolkov/python-project-lvl2/test_coverage)
+
+### Example of usage
+[![asciicast](https://asciinema.org/a/Dp45pQqjV5udN3fMU0SvU3rYI.svg)](https://asciinema.org/a/Dp45pQqjV5udN3fMU0SvU3rYI)
