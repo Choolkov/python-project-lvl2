@@ -20,8 +20,12 @@ from tests.fixtures_paths import (
 def test_generate_diff():
     """Test for generate_diff function."""
     expected_diff = FLAT_DIFF_FILE.read_text()
-    assert generate_diff(JSON_FIRST_FILE, JSON_SECOND_FILE) == expected_diff
-    assert generate_diff(YAML_FIRST_FILE, YAML_SECOND_FILE) == expected_diff
+    fixture1 = parse_file(JSON_FIRST_FILE)
+    fixture2 = parse_file(JSON_SECOND_FILE)
+    fixture3 = parse_file(YAML_FIRST_FILE)
+    fixture4 = parse_file(YAML_SECOND_FILE)
+    assert get_stylish(build_tree(fixture1, fixture2)) == expected_diff
+    assert get_stylish(build_tree(fixture3, fixture4)) == expected_diff
 
 def test_generate_diff_recursive():
     """Test for generate_diff function recursive."""

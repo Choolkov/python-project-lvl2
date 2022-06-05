@@ -2,7 +2,7 @@
 import argparse
 import pathlib
 
-from gendiff.flat import generate_diff
+from gendiff.gendiff import generate_diff
 
 parser = argparse.ArgumentParser(
     description='Compares two configuration files and shows a difference.',
