@@ -1,3 +1,5 @@
+"""Stylish output format module."""
+
 import json
 from typing import Any
 
@@ -86,5 +88,4 @@ def get_stylish(tree: list) -> str:
     for node in tree:
         lines.append(stringify_node(node))
     lines.append('}')
-    print('\n'.join(lines))
     return '\n'.join(lines)

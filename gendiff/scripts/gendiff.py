@@ -14,13 +14,15 @@ parser.add_argument(
     '--format',
     metavar='FORMAT',
     help='set format of output',
+    choices=['stylish', 'plain'],
+    default='stylish'
 )
 args = parser.parse_args()
 
 
 def main():
     """Print the difference between two flat json files."""
-    print(generate_diff(args.first_file, args.second_file))
+    print(generate_diff(args.first_file, args.second_file, args.format))
 
 
 if __name__ == '__main__':
