@@ -9,14 +9,18 @@ from gendiff.views.plain import get_plain
 from gendiff.views.stylish import get_stylish
 
 
-def generate_diff(first_file: Path, second_file: Path, format_name='stylish') -> str:
+def generate_diff(
+    first_file: Path,
+    second_file: Path,
+    format_name='stylish',
+) -> str:
     """
     Return the difference between two flat json or yaml files.
 
     Args:
         first_file: first file path
         second_file: second file path
-        view: diff output format
+        format_name: diff output format
 
     Returns:
         str

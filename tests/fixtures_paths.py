@@ -7,16 +7,12 @@ FIXTURES = Path(TESTS, 'fixtures')
 
 JSON_FIRST_FILE = Path(FIXTURES, 'file1.json')
 JSON_SECOND_FILE = Path(FIXTURES, 'file2.json')
-JSON_THIRD_FILE = Path(FIXTURES, 'file3.json')
-JSON_FOURTH_FILE = Path(FIXTURES, 'file4.json')
 
 YAML_FIRST_FILE = Path(FIXTURES, 'file1.yaml')
 YAML_SECOND_FILE = Path(FIXTURES, 'file2.yaml')
-YAML_THIRD_FILE = Path(FIXTURES, 'file3.yaml')
-YAML_FOURTH_FILE = Path(FIXTURES, 'file4.yaml')
 
 DIFFS = Path(FIXTURES, 'diffs')
-FLAT_DIFF_FILE = Path(DIFFS, 'flat_diff.txt')
-NESTED_DIFF_FILE = Path(DIFFS, 'nested_diff.txt')
-PLAIN_DIFF_FILE = Path(DIFFS, 'plain_diff.txt')
-JSON_DIFF_FILE = Path(DIFFS, 'json_diff.txt')
+
+DIFF_STYLISH_FILE = Path(DIFFS, 'stylish_diff.txt')
+DIFF_PLAIN_FILE = Path(DIFFS, 'plain_diff.txt')
+DIFF_JSON_FILE = Path(DIFFS, 'json_diff.txt')

@@ -4,9 +4,6 @@ from collections import namedtuple
 Node = namedtuple('Node', ['name', 'status', 'children'])
 
 
-def make_node(name, status, values):
-    return Node(name, status, values)
-
 def build_tree(dict1: dict, dict2: dict) -> dict:
     """
     Return the diff of two dictionaries.

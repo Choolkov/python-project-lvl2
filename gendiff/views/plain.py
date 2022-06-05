@@ -47,5 +47,4 @@ def get_plain(tree: list) -> str:
     lines = []
     for node in tree:
         lines.append(stringify_node(node))
-    print('\n'.join(lines))
     return '\n'.join(filter(None, lines))

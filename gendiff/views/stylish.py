@@ -32,8 +32,8 @@ def stringify_node(node: Node, depth: int = 1) -> str:
 
     if node.status == 'nested':
         lines.append('{0}{1}: {{'.format(INDENT * depth, node.name))
-        for value in node.children:
-            lines.append(stringify_node(value, depth + 1))
+        for child in node.children:
+            lines.append(stringify_node(child, depth + 1))
         lines.append('{0}}}'.format(INDENT * depth))
     elif node.status == 'changed':
         lines.append(
