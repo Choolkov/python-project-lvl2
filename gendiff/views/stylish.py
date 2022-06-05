@@ -32,7 +32,7 @@ def stringify_node(node: Node, depth: int = 1) -> str:
 
     if node.status == 'nested':
         lines.append('{0}{1}: {{'.format(INDENT * depth, node.name))
-        for value in node.values:
+        for value in node.children:
             lines.append(stringify_node(value, depth + 1))
         lines.append('{0}}}'.format(INDENT * depth))
     elif node.status == 'changed':
@@ -41,7 +41,7 @@ def stringify_node(node: Node, depth: int = 1) -> str:
                 INDENT * (depth - 1),
                 REMOVED_INDENT,
                 node.name,
-                stringify_value(node.values[0], depth),
+                stringify_value(node.children[0], depth),
             )
         )
         lines.append(
@@ -49,7 +49,7 @@ def stringify_node(node: Node, depth: int = 1) -> str:
                 INDENT * (depth - 1),
                 ADDED_INDENT,
                 node.name,
-                stringify_value(node.values[1], depth),
+                stringify_value(node.children[1], depth),
             )
         )
     elif node.status == 'added':
@@ -58,7 +58,7 @@ def stringify_node(node: Node, depth: int = 1) -> str:
                 INDENT * (depth - 1),
                 ADDED_INDENT,
                 node.name,
-                stringify_value(node.values, depth),
+                stringify_value(node.children, depth),
             )
         )
     elif node.status == 'removed':
@@ -67,7 +67,7 @@ def stringify_node(node: Node, depth: int = 1) -> str:
                 INDENT * (depth - 1),
                 REMOVED_INDENT,
                 node.name,
-                stringify_value(node.values, depth),
+                stringify_value(node.children, depth),
             )
         )
     elif node.status == 'unchanged':
@@ -76,7 +76,7 @@ def stringify_node(node: Node, depth: int = 1) -> str:
                 INDENT * (depth - 1),
                 INDENT,
                 node.name,
-                stringify_value(node.values, depth),
+                stringify_value(node.children, depth),
             )
         )
 

@@ -17,25 +17,25 @@ def stringify_value(value: Any) -> str:
 def stringify_node(node: Node) -> str:
     lines = []
     if node.status == 'nested':
-        for child in node.values:
+        for child in node.children:
             child_node = Node(
                 '{0}.{1}'.format(node.name, child.name),
                 child.status,
-                child.values,
+                child.children,
             )
             lines.append(stringify_node(child_node))
     elif node.status == 'changed':
         lines.append(
             "Property '{0}' was updated. From {1} to {2}".format(
                 node.name,
-                stringify_value(node.values[0]),
-                stringify_value(node.values[1]),
+                stringify_value(node.children[0]),
+                stringify_value(node.children[1]),
             )
         )
     elif node.status == 'added':
         lines.append(
             "Property '{0}' was added with value: {1}".format(
-                node.name, stringify_value(node.values)
+                node.name, stringify_value(node.children)
             )
         )
     elif node.status == 'removed':
