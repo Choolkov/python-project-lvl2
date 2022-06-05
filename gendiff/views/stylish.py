@@ -8,26 +8,55 @@ from gendiff.tree import Node
 INDENT = '    '
 ADDED_INDENT = '  + '
 REMOVED_INDENT = '  - '
+status_indents = {
+    'added': ADDED_INDENT,
+    'removed': REMOVED_INDENT,
+    'unchanged': INDENT,
+}
 
 
-def stringify_value(value: Any, depth: int = 1) -> str:
-    if isinstance(value, dict):
+def stringify_value(node_value: Any, depth: int = 1) -> str:
+    """
+    Return a string representation of the value.
+
+    Args:
+        node_value: value
+        depth: indent depth
+
+    Returns:
+        str
+    """
+    if isinstance(node_value, dict):
         lines = ['{']
-        for key, val in value.items():
+        for subkey, subvalue in node_value.items():
             lines.append(
                 '{0}{1}: {2}'.format(
                     INDENT * (depth + 1),
-                    key,
-                    stringify_value(val, depth + 1),
-                )
+                    subkey,
+                    stringify_value(subvalue, depth + 1),
+                ),
             )
         lines.append('{0}}}'.format(INDENT * depth))
         return '\n'.join(lines)
-    else:
-        return value if isinstance(value, str) else json.dumps(value)
+    return (
+        node_value
+        if isinstance(node_value, str)
+        else json.dumps(node_value)
+    )
 
 
 def stringify_node(name: str, node: Node, depth: int = 1) -> str:
+    """
+    Return a string representation of the node.
+
+    Args:
+        name: name of node
+        node: node
+        depth: indent depth
+
+    Returns:
+        str
+    """
     lines = []
     if node.status == 'nested':
         lines.append('{0}{1}: {{'.format(INDENT * depth, name))
@@ -41,7 +70,7 @@ def stringify_node(name: str, node: Node, depth: int = 1) -> str:
                 REMOVED_INDENT,
                 name,
                 stringify_value(node.children[0], depth),
-            )
+            ),
         )
         lines.append(
             '{0}{1}{2}: {3}'.format(
@@ -49,34 +78,16 @@ def stringify_node(name: str, node: Node, depth: int = 1) -> str:
                 ADDED_INDENT,
                 name,
                 stringify_value(node.children[1], depth),
-            )
+            ),
         )
-    elif node.status == 'added':
+    elif node.status in {'added', 'removed', 'unchanged'}:
         lines.append(
             '{0}{1}{2}: {3}'.format(
                 INDENT * (depth - 1),
-                ADDED_INDENT,
+                status_indents[node.status],
                 name,
                 stringify_value(node.children, depth),
-            )
-        )
-    elif node.status == 'removed':
-        lines.append(
-            '{0}{1}{2}: {3}'.format(
-                INDENT * (depth - 1),
-                REMOVED_INDENT,
-                name,
-                stringify_value(node.children, depth),
-            )
-        )
-    elif node.status == 'unchanged':
-        lines.append(
-            '{0}{1}{2}: {3}'.format(
-                INDENT * (depth - 1),
-                INDENT,
-                name,
-                stringify_value(node.children, depth),
-            )
+            ),
         )
 
     return '\n'.join(lines)

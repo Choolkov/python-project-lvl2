@@ -25,7 +25,7 @@ def stringify_value(node_value: Any) -> str:
     )
 
 
-def stringify_node(name: str, node: Node) -> str:
+def stringify_node(name: str, node: Node) -> str:  # NOQA WPS231
     lines = []
     if node.status == 'nested':
         for child_name, child_node in node.children.items():
