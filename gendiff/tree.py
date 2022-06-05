@@ -1,10 +1,10 @@
 """Generate diff module for recursive structures."""
 from collections import namedtuple
 
-Node = namedtuple('Node', ['name', 'status', 'children'])
+Node = namedtuple('Node', ['status', 'children'])
 
 
-def build_tree(dict1: dict, dict2: dict) -> dict:
+def build_tree(dict1: dict, dict2: dict) -> dict:  # NOQA WPS232
     """
     Return the diff of two dictionaries.
 
@@ -16,19 +16,19 @@ def build_tree(dict1: dict, dict2: dict) -> dict:
         dict
 
     """
-    diff = []
+    diff = {}
     keys = sorted(dict1.keys() | dict2.keys())
     for key in keys:
+        value1 = dict1.get(key)
+        value2 = dict2.get(key)
         if key not in dict1:
-            diff.append(Node(key, 'added', dict2[key]))
+            diff[key] = Node('added', value2)  # NOQA WPS204
         elif key not in dict2:
-            diff.append(Node(key, 'removed', dict1[key]))
-        elif dict1[key] == dict2[key]:
-            diff.append(Node(key, 'unchanged', dict1[key]))
-        elif isinstance(dict1[key], dict) and isinstance(dict2[key], dict):
-            diff.append(
-                Node(key, 'nested', build_tree(dict1[key], dict2[key])),
-            )
+            diff[key] = Node('removed', value1)
+        elif value1 == value2:
+            diff[key] = Node('unchanged', value1)
+        elif isinstance(value1, dict) and isinstance(value2, dict):
+            diff[key] = Node('nested', build_tree(value1, value2))
         else:
-            diff.append(Node(key, 'changed', (dict1[key], dict2[key])))
+            diff[key] = Node('changed', (value1, value2))
     return diff

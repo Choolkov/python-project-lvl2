@@ -1,94 +1,78 @@
-[
-    [
-        "common",
+{
+    "common": [
         "nested",
-        [
-            [
-                "follow",
+        {
+            "follow": [
                 "added",
                 false
             ],
-            [
-                "setting1",
+            "setting1": [
                 "unchanged",
                 "Value 1"
             ],
-            [
-                "setting2",
+            "setting2": [
                 "removed",
                 200
             ],
-            [
-                "setting3",
+            "setting3": [
                 "changed",
                 [
                     true,
                     null
                 ]
             ],
-            [
-                "setting4",
+            "setting4": [
                 "added",
                 "blah blah"
             ],
-            [
-                "setting5",
+            "setting5": [
                 "added",
                 {
                     "key5": "value5"
                 }
             ],
-            [
-                "setting6",
+            "setting6": [
                 "nested",
-                [
-                    [
-                        "doge",
+                {
+                    "doge": [
                         "nested",
-                        [
-                            [
-                                "wow",
+                        {
+                            "wow": [
                                 "changed",
                                 [
                                     "",
                                     "so much"
                                 ]
                             ]
-                        ]
+                        }
                     ],
-                    [
-                        "key",
+                    "key": [
                         "unchanged",
                         "value"
                     ],
-                    [
-                        "ops",
+                    "ops": [
                         "added",
                         "vops"
                     ]
-                ]
+                }
             ]
-        ]
+        }
     ],
-    [
-        "group1",
+    "group1": [
         "nested",
-        [
-            [
-                "baz",
+        {
+            "baz": [
                 "changed",
                 [
                     "bas",
                     "bars"
                 ]
             ],
-            [
-                "foo",
+            "foo": [
                 "unchanged",
                 "bar"
             ],
-            [
-                "nest",
+            "nest": [
                 "changed",
                 [
                     {
@@ -97,10 +81,9 @@
                     "str"
                 ]
             ]
-        ]
+        }
     ],
-    [
-        "group2",
+    "group2": [
         "removed",
         {
             "abc": 12345,
@@ -109,8 +92,7 @@
             }
         }
     ],
-    [
-        "group3",
+    "group3": [
         "added",
         {
             "deep": {
@@ -121,4 +103,4 @@
             "fee": 100500
         }
     ]
-]
+}

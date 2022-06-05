@@ -27,20 +27,19 @@ def stringify_value(value: Any, depth: int = 1) -> str:
         return value if isinstance(value, str) else json.dumps(value)
 
 
-def stringify_node(node: Node, depth: int = 1) -> str:
+def stringify_node(name: str, node: Node, depth: int = 1) -> str:
     lines = []
-
     if node.status == 'nested':
-        lines.append('{0}{1}: {{'.format(INDENT * depth, node.name))
-        for child in node.children:
-            lines.append(stringify_node(child, depth + 1))
+        lines.append('{0}{1}: {{'.format(INDENT * depth, name))
+        for child_name, child_node in node.children.items():
+            lines.append(stringify_node(child_name, child_node, depth + 1))
         lines.append('{0}}}'.format(INDENT * depth))
     elif node.status == 'changed':
         lines.append(
             '{0}{1}{2}: {3}'.format(
                 INDENT * (depth - 1),
                 REMOVED_INDENT,
-                node.name,
+                name,
                 stringify_value(node.children[0], depth),
             )
         )
@@ -48,7 +47,7 @@ def stringify_node(node: Node, depth: int = 1) -> str:
             '{0}{1}{2}: {3}'.format(
                 INDENT * (depth - 1),
                 ADDED_INDENT,
-                node.name,
+                name,
                 stringify_value(node.children[1], depth),
             )
         )
@@ -57,7 +56,7 @@ def stringify_node(node: Node, depth: int = 1) -> str:
             '{0}{1}{2}: {3}'.format(
                 INDENT * (depth - 1),
                 ADDED_INDENT,
-                node.name,
+                name,
                 stringify_value(node.children, depth),
             )
         )
@@ -66,7 +65,7 @@ def stringify_node(node: Node, depth: int = 1) -> str:
             '{0}{1}{2}: {3}'.format(
                 INDENT * (depth - 1),
                 REMOVED_INDENT,
-                node.name,
+                name,
                 stringify_value(node.children, depth),
             )
         )
@@ -75,7 +74,7 @@ def stringify_node(node: Node, depth: int = 1) -> str:
             '{0}{1}{2}: {3}'.format(
                 INDENT * (depth - 1),
                 INDENT,
-                node.name,
+                name,
                 stringify_value(node.children, depth),
             )
         )
@@ -83,9 +82,18 @@ def stringify_node(node: Node, depth: int = 1) -> str:
     return '\n'.join(lines)
 
 
-def get_stylish(tree: list) -> str:
+def get_stylish(tree: dict) -> str:
+    """
+    Return a stylish representation of the diff tree.
+
+    Args:
+        tree: diff tree
+
+    Returns:
+        str
+    """
     lines = ['{']
-    for node in tree:
-        lines.append(stringify_node(node))
+    for name, node in tree.items():
+        lines.append(stringify_node(name, node))
     lines.append('}')
     return '\n'.join(lines)
