@@ -14,6 +14,7 @@ def generate_diff(first_file: Path, second_file: Path, view='stylish') -> str:
     Args:
         first_file: first file path
         second_file: second file path
+        view: diff output format
 
     Returns:
         str

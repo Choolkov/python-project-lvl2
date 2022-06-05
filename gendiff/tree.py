@@ -1,8 +1,6 @@
 """Generate diff module for recursive structures."""
 from collections import namedtuple
 
-from gendiff.flat import get_keys
-
 Node = namedtuple('Node', ['name', 'status', 'values'])
 
 
@@ -19,7 +17,7 @@ def build_tree(dict1: dict, dict2: dict) -> dict:
 
     """
     diff = []
-    keys = get_keys(dict1, dict2)
+    keys = sorted(dict1.keys() | dict2.keys())
     for key in keys:
         if key not in dict1:
             diff.append(Node(key, 'added', dict2[key]))

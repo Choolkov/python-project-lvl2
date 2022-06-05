@@ -17,4 +17,4 @@ YAML_FOURTH_FILE = Path(FIXTURES, 'file4.yaml')
 
 DIFFS = Path(FIXTURES, 'diffs')
 FLAT_DIFF_FILE = Path(DIFFS, 'flat_diff.txt')
-RECURSIVE_DIFF_FILE = Path(DIFFS, 'recursive_diff.txt')
+NESTED_DIFF_FILE = Path(DIFFS, 'nested_diff.txt')
