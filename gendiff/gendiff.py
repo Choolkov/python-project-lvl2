@@ -2,7 +2,8 @@
 
 from pathlib import Path
 
-from gendiff.parsing import parse_file
+from gendiff.io import get_extension, load_content
+from gendiff.parsing import parse_content
 from gendiff.tree import build_tree
 from gendiff.views.json import get_json
 from gendiff.views.plain import get_plain
@@ -26,8 +27,13 @@ def generate_diff(
         str
 
     """
-    first_dict = parse_file(first_file)
-    second_dict = parse_file(second_file)
-    tree = build_tree(first_dict, second_dict)
+    first_file_content = parse_content(
+        load_content(first_file), get_extension(first_file),
+    )
+    second_file_content = parse_content(
+        load_content(second_file), get_extension(second_file),
+    )
     views = {'stylish': get_stylish, 'plain': get_plain, 'json': get_json}
-    return views[format_name](tree)
+    return views[format_name](
+        build_tree(first_file_content, second_file_content),
+    )

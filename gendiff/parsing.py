@@ -1,28 +1,25 @@
 """Parse module."""
 
 import json
-from pathlib import Path
-from typing import Union
 
 import yaml
 
 
-def parse_file(path: Union[Path, str]) -> dict:
-    """Parse json and yaml files.
+def parse_content(string_data: str, extension: str) -> dict:
+    """Parse json and yaml data.
 
     Args:
-        path: path to file
+        string_data: data in string format
+        extension: data extension
 
     Returns:
         dict
 
     Raises:
-        AttributeError: if file format unsupported
+        RuntimeError: if extension unsupported
     """
-    if isinstance(path, str):
-        path = Path(path)
-    if path.name.endswith('.json'):
-        return json.load(path.open())
-    elif path.name.endswith('.yaml') or path.name.endswith('.yml'):
-        return yaml.safe_load(path.open())
-    raise AttributeError('Unsupported file format')
+    if extension == 'json':
+        return json.loads(string_data)
+    elif extension in {'yaml', 'yml'}:
+        return yaml.safe_load(string_data)
+    raise RuntimeError('Unsupported extension')
