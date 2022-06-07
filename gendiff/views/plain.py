@@ -27,25 +27,25 @@ def stringify_value(node_value: Any) -> str:
 
 def stringify_node(name: str, node: Node) -> str:  # NOQA WPS231
     lines = []
-    if node.status == 'nested':
-        for child_name, child_node in node.children.items():
+    if node.type == 'nested':
+        for child_name, child_node in node.value.items():
             child_name = '{0}.{1}'.format(name, child_name)
             lines.append(stringify_node(child_name, child_node))
-    elif node.status == 'changed':
+    elif node.type == 'changed':
         lines.append(
             "Property '{0}' was updated. From {1} to {2}".format(
                 name,
-                stringify_value(node.children[0]),
-                stringify_value(node.children[1]),
+                stringify_value(node.value[0]),
+                stringify_value(node.value[1]),
             ),
         )
-    elif node.status == 'added':
+    elif node.type == 'added':
         lines.append(
             "Property '{0}' was added with value: {1}".format(
-                name, stringify_value(node.children),
+                name, stringify_value(node.value),
             ),
         )
-    elif node.status == 'removed':
+    elif node.type == 'removed':
         lines.append("Property '{0}' was removed".format(name))
     return '\n'.join(filter(None, lines))
 

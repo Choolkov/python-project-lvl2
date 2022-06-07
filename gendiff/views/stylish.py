@@ -8,7 +8,7 @@ from gendiff.tree import Node
 INDENT = '    '
 ADDED_INDENT = '  + '
 REMOVED_INDENT = '  - '
-status_indents = {
+type_indents = {
     'added': ADDED_INDENT,
     'removed': REMOVED_INDENT,
     'unchanged': INDENT,
@@ -58,18 +58,18 @@ def stringify_node(name: str, node: Node, depth: int = 1) -> str:
         str
     """
     lines = []
-    if node.status == 'nested':
+    if node.type == 'nested':
         lines.append('{0}{1}: {{'.format(INDENT * depth, name))
-        for child_name, child_node in node.children.items():
+        for child_name, child_node in node.value.items():
             lines.append(stringify_node(child_name, child_node, depth + 1))
         lines.append('{0}}}'.format(INDENT * depth))
-    elif node.status == 'changed':
+    elif node.type == 'changed':
         lines.append(
             '{0}{1}{2}: {3}'.format(
                 INDENT * (depth - 1),
                 REMOVED_INDENT,
                 name,
-                stringify_value(node.children[0], depth),
+                stringify_value(node.value[0], depth),
             ),
         )
         lines.append(
@@ -77,16 +77,16 @@ def stringify_node(name: str, node: Node, depth: int = 1) -> str:
                 INDENT * (depth - 1),
                 ADDED_INDENT,
                 name,
-                stringify_value(node.children[1], depth),
+                stringify_value(node.value[1], depth),
             ),
         )
-    elif node.status in {'added', 'removed', 'unchanged'}:
+    elif node.type in {'added', 'removed', 'unchanged'}:
         lines.append(
             '{0}{1}{2}: {3}'.format(
                 INDENT * (depth - 1),
-                status_indents[node.status],
+                type_indents[node.type],
                 name,
-                stringify_value(node.children, depth),
+                stringify_value(node.value, depth),
             ),
         )
 

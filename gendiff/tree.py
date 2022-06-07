@@ -1,7 +1,7 @@
 """Generate diff module for recursive structures."""
 from collections import namedtuple
 
-Node = namedtuple('Node', ['status', 'children'])
+Node = namedtuple('Node', ['type', 'value'])
 
 
 def build_tree(dict1: dict, dict2: dict) -> dict:  # NOQA WPS232
