@@ -18,9 +18,7 @@ jobs:
       run: |
         make poetry-install
         make install
-    - name: Run tests
-      run: make tests
-    - name: Run & publish code coverage
+    - name: Run tests & publish code coverage
       uses: paambaati/codeclimate-action@v3.0.0
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
