@@ -1,5 +1,5 @@
 """Tests for generate_diff function."""
-
+import pytest
 from gendiff.gendiff import generate_diff
 from tests.fixtures_paths import (
     DIFF_JSON_FILE,
@@ -11,30 +11,28 @@ from tests.fixtures_paths import (
     YAML_SECOND_FILE,
 )
 
-fixtures = {
-    'stylish': DIFF_STYLISH_FILE.read_text(),
-    'plain': DIFF_PLAIN_FILE.read_text(),
-    'json': DIFF_JSON_FILE.read_text(),
-}
 
+@pytest.mark.parametrize(
+    'first_file,second_file,diff,format_name',
+    [
+        (JSON_FIRST_FILE, JSON_SECOND_FILE, DIFF_STYLISH_FILE, 'stylish'),
+        (JSON_FIRST_FILE, JSON_SECOND_FILE, DIFF_PLAIN_FILE, 'plain'),
+        (JSON_FIRST_FILE, JSON_SECOND_FILE, DIFF_JSON_FILE, 'json'),
+        (YAML_FIRST_FILE, YAML_SECOND_FILE, DIFF_STYLISH_FILE, 'stylish'),
+        (YAML_FIRST_FILE, YAML_SECOND_FILE, DIFF_PLAIN_FILE, 'plain'),
+        (YAML_FIRST_FILE, YAML_SECOND_FILE, DIFF_JSON_FILE, 'json'),
+    ],
+)
+def test_generate_diff(first_file, second_file, diff, format_name):
+    """Tests the generate_diff function.
 
-def test_generate_diff():
-    """Test for generate_diff function."""
-    for format_name, expected_diff in fixtures.items():
-        assert (
-            generate_diff(
-                JSON_FIRST_FILE,
-                JSON_SECOND_FILE,
-                format_name=format_name,
-            )
-            == expected_diff
-        )
-
-        assert (
-            generate_diff(
-                YAML_FIRST_FILE,
-                YAML_SECOND_FILE,
-                format_name=format_name,
-            )
-            == expected_diff
-        )
+    Args:
+        first_file: first file path
+        second_file: second file path
+        diff: expected diff path
+        format_name: format name
+    """
+    with open(diff) as file:  # NOQA: WPS110
+        expected_diff = file.read()
+    diff = generate_diff(first_file, second_file, format_name)
+    assert diff == expected_diff
