@@ -2,7 +2,12 @@
 name = "hexlet-code"
 version = "0.1.0"
 description = "Compares two configuration files and shows a difference."
+classifiers = [
+  "Environment :: Console",
+  "Intended Audience :: Developers"
+]
 authors = ["Sergey Chulkov <s.v.chuklov@ya.ru>"]
+repository = "https://github.com/Choolkov/python-project-lvl2.git"
 packages = [
   { include = "gendiff" },
 ]
