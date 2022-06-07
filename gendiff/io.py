@@ -27,4 +27,6 @@ def get_extension(path: Path) -> str:
     Returns:
         str
     """
+    if isinstance(path, str):
+        path = Path(path)
     return path.name.split('.')[-1]
